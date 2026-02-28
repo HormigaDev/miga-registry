@@ -1,0 +1,13 @@
+{
+  "name": "bimap",
+  "version": "0.0.1",
+  "description": "Estructura de datos de mapa bidireccional (clave <-> valor) optimizada para Bedrock.",
+  "license": "MIT",
+  "entry": "bimap.ts",
+  "files": [
+    "bimap.ts",
+    "README.md"
+  ],
+  "dependencies": [],
+  "archive": "source.zip"
+}

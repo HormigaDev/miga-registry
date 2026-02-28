@@ -1,0 +1,42 @@
+name: Registry Immutability Guard
+
+on:
+    pull_request:
+        paths:
+            - 'modules/**'
+
+jobs:
+    check-immutability:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # Trae todo el historial para poder comparar
+
+            - name: Check for modified files in existing versions
+              run: |
+                  # 1. Obtener archivos cambiados comparando contra origin/master
+                  # Usamos origin/master porque el checkout por defecto no crea una rama local master
+                  CHANGED_FILES=$(git diff --name-only origin/master...HEAD | grep '^modules/' || true)
+
+                  if [ -z "$CHANGED_FILES" ]; then
+                    echo "✅ No changes in modules directory."
+                    exit 0
+                  fi
+
+                  for FILE in $CHANGED_FILES; do
+                    # Extraer la ruta: modules/nombre-modulo/v1.0.0
+                    VERSION_DIR=$(echo "$FILE" | cut -d/ -f1-3)
+                    
+                    # 2. Verificar si esa carpeta ya existía en la rama master de origin
+                    if git ls-tree -d origin/master "$VERSION_DIR" > /dev/null 2>&1; then
+                      
+                      echo "❌ ERROR: The version directory '$VERSION_DIR' already exists in 'master'."
+                      echo "Existing versions are immutable. To push changes, you must create a new version directory (e.g., v1.0.1)."
+                      echo "Modified file: $FILE"
+                      exit 1
+                    fi
+                  done
+
+                  echo "✅ All changes belong to new versions. Immutability check passed."

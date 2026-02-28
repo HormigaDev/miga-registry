@@ -1,0 +1,19 @@
+{
+    "name": "miga-registry",
+    "version": "1.0.0",
+    "description": "The Repository to save all Miga Modules",
+    "main": "index.ts",
+    "scripts": {
+        "prepare": "node scripts/prepare-module.js"
+    },
+    "keywords": [],
+    "author": "HormigaDev",
+    "license": "MIT",
+    "type": "commonjs",
+    "devDependencies": {
+        "@minecraft/server": "^2.5.0",
+        "@minecraft/server-ui": "^2.0.0",
+        "archiver": "^7.0.1",
+        "typescript": "^5.9.3"
+    }
+}
