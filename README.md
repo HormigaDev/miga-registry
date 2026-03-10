@@ -32,7 +32,7 @@ modules/
 2. Fill the `manifest.json`.
 3. Run the preparation script:
     ```bash
-    npm run prepare <module-name> <version>
+    npm run pre <module-name> <version>
     ```
 4. Submit a Pull Request.
 
@@ -70,7 +70,7 @@ modules/
 2. Completa el `manifest.json`.
 3. Ejecuta el script de preparación:
     ```bash
-    npm run prepare <nombre-del-modulo> <version>
+    npm run pre <nombre-del-modulo> <version>
     ```
 4. Envía un Pull Request.
 
@@ -108,7 +108,7 @@ modules/
 2. Preencha o `manifest.json`.
 3. Execute o script de preparação:
     ```bash
-    npm run prepare <nome-do-modulo> <versao>
+    npm run pre <nome-do-modulo> <versao>
     ```
 4. Envie um Pull Request.
 

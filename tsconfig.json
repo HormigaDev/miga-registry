@@ -3,17 +3,23 @@
         "target": "ES2020",
         "module": "ES2020",
         "moduleResolution": "node",
-        "lib": ["ES2020"],
-        "strict": true /* Obliga a tipar todo correctamente */,
-        "noEmit": true /* IMPORTANTE: VS Code solo revisa, no crea .js */,
+        "lib": ["ES2020", "DOM"],
+        "strict": true,
+        "noEmit": true,
         "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true /* Acelera la carga ignorando chequeos profundos de libs */,
+        "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "declaration": true,
 
         /* Rutas para que VS Code no se queje de los imports */
         "baseUrl": ".",
         "paths": {
-            "*": ["node_modules/*"]
+            "*": ["node_modules/*"],
+            "logger": ["modules/logger/v0.1.0/logger.ts"]
         }
     },
     "include": ["**/*.ts"],

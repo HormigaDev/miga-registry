@@ -1,18 +1,41 @@
 const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');
+const { glob: globAsync } = require('glob');
 
 // Obtener argumentos: node prepare-module.js <modulo> <version>
 const [, , moduleName, version] = process.argv;
 
 if (!moduleName || !version) {
-    console.error('❌ Uso: npm run prepare <modulo> <version>');
+    console.error('❌ Uso: npm run pre <modulo> <version>');
     process.exit(1);
 }
 
 const modulePath = path.join(__dirname, '../modules', moduleName, `v${version}`);
 const manifestPath = path.join(modulePath, 'manifest.json');
 const outputPath = path.join(modulePath, 'source.zip');
+
+async function expandPatterns(basePath, patterns) {
+    const expandedFiles = new Set();
+
+    for (const pattern of patterns) {
+        // Detectar si es un patrón glob (contiene *, **, o ?)
+        if (pattern.includes('*') || pattern.includes('?')) {
+            try {
+                const matches = await globAsync(pattern, { cwd: basePath, nodir: true });
+                matches.forEach((match) => expandedFiles.add(match));
+                console.log(`   📂 Patrón expandido: ${pattern} (${matches.length} archivos)`);
+            } catch (err) {
+                console.warn(`   ⚠️  Error procesando patrón: ${pattern}`);
+            }
+        } else {
+            // Es un archivo específico
+            expandedFiles.add(pattern);
+        }
+    }
+
+    return Array.from(expandedFiles);
+}
 
 async function prepare() {
     if (!fs.existsSync(manifestPath)) {
@@ -25,6 +48,9 @@ async function prepare() {
 
     // Lista de archivos: entry + files
     const filesToInclude = [manifest.entry, ...(manifest.files || [])];
+
+    // 1.5. Expandir patrones glob
+    const expandedFiles = await expandPatterns(modulePath, filesToInclude);
 
     console.log(`📦 Preparando ZIP para ${moduleName} v${version}...`);
 
@@ -43,14 +69,14 @@ async function prepare() {
     archive.pipe(output);
 
     // 3. Añadir solo los archivos declarados
-    for (const fileRelativePath of filesToInclude) {
+    for (const fileRelativePath of expandedFiles) {
         const fullPath = path.join(modulePath, fileRelativePath);
 
-        if (fs.existsSync(fullPath)) {
+        if (fs.existsSync(fullPath) && fs.statSync(fullPath).isFile()) {
             // fileRelativePath se usa como nombre dentro del zip para mantener estructura
             archive.file(fullPath, { name: fileRelativePath });
             console.log(`   + ${fileRelativePath}`);
-        } else {
+        } else if (!fs.existsSync(fullPath)) {
             console.warn(
                 `   ⚠️  ADVERTENCIA: Archivo declarado no encontrado: ${fileRelativePath}`,
             );

@@ -1,0 +1,13 @@
+{
+  "name": "logger",
+  "version": "0.0.1",
+  "description": "Simple Colored logger for debug",
+  "license": "MIT",
+  "entry": "logger.ts",
+  "files": [
+    "logger.ts",
+    "README.md"
+  ],
+  "dependencies": [],
+  "archive": "source.zip"
+}

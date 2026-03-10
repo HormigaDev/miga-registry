@@ -1,0 +1,16 @@
+{
+  "name": "@miga/framework",
+  "version": "0.1.0",
+  "description": "Production-grade framework for Minecraft Bedrock Addons",
+  "license": "MIT",
+  "entry": "index.ts",
+  "files": [
+    "index.ts",
+    "README.md",
+    "src/**/*.ts"
+  ],
+  "dependencies": [
+    "logger@0.1.0"
+  ],
+  "archive": "source.zip"
+}
