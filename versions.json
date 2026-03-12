@@ -2,6 +2,8 @@
     "latest_versions": {
         "bimap": "0.0.1",
         "logger": "0.1.0",
-        "@miga/framework": "0.1.0"
+        "@miga/framework": "0.1.0",
+        "@miga/ui": "0.1.0",
+        "calendar": "0.1.0"
     }
 }

@@ -1,0 +1,10 @@
+{
+    "name": "@miga/ui",
+    "version": "0.1.0",
+    "description": "A UI Library for utility",
+    "license": "MIT",
+    "entry": "index.ts",
+    "files": ["index.ts", "README.md"],
+    "dependencies": ["logger@0.1.0"],
+    "archive": "source.zip"
+}

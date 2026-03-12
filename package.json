@@ -4,17 +4,23 @@
     "description": "The Repository to save all Miga Modules",
     "main": "index.ts",
     "scripts": {
-        "pre": "node scripts/prepare-module.js"
+        "pre": "node scripts/prepare-module.js",
+        "test": "vitest",
+        "test:ui": "vitest --ui",
+        "test:run": "vitest run"
     },
     "keywords": [],
     "author": "HormigaDev",
     "license": "MIT",
     "type": "commonjs",
     "devDependencies": {
-        "@minecraft/server": "^2.5.0",
         "@minecraft/server-ui": "^2.0.0",
         "archiver": "^7.0.1",
         "glob": "^13.0.6",
-        "typescript": "^5.9.3"
+        "typescript": "^5.9.3",
+        "vitest": "^4.1.0"
+    },
+    "dependencies": {
+        "@minecraft/server": "^2.6.0-rc.1.26.20-preview.20"
     }
 }

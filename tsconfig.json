@@ -20,7 +20,8 @@
         "paths": {
             "*": ["node_modules/*"],
             "logger": ["modules/logger/v0.1.0/logger.ts"]
-        }
+        },
+        "types": ["vitest/globals"]
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules", "dist", "build"]
