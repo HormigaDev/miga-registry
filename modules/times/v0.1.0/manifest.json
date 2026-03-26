@@ -1,0 +1,13 @@
+{
+  "name": "times",
+  "version": "0.1.0",
+  "description": "Utility class for representing and converting Minecraft time units.",
+  "license": "MIT",
+  "entry": "times.ts",
+  "files": [
+    "times.ts",
+    "README.md"
+  ],
+  "dependencies": [],
+  "archive": "source.zip"
+}
